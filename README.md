@@ -35,6 +35,8 @@ O programa tem como público-alvo **alunos da UTFPR** e a **comunidade externa**
 - Destaque em veículos como **Folha de Londrina**, **Taberna Role Play (YouTube)** e **Podcast A Taverna do Beholder Cego**.  
 - Participações em eventos culturais e acadêmicos como **WRPG Fest**, **Semana do Orgulho Nerd**, **Expo Japão 2018** e **SPIEL Digital 2020**.  
 
+--
+
 ## 🚀 Funcionalidades do Backend (em desenvolvimento)
 
 - API REST para gerenciamento de usuários, jogos, eventos e empréstimos. - Autenticação e autorização com **Spring Security**.  
