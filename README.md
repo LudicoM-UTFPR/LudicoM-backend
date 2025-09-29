@@ -82,3 +82,7 @@ mvn clean compile
 
 # Rodar a aplicação
 mvn spring-boot:run
+
+## 📄 Licença
+
+Este projeto está licenciado sob os termos da [Licença MIT](./LICENSE).
