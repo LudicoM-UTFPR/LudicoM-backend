@@ -1,10 +1,17 @@
+package com.ludicom.backend.model;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 @Entity
 @Table(name = "jogo")
 public class Jogo {
     @Id 
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(columnDefinition = "text")
-    private UUID uid; 
+    private UUID uid;
 
     @NotBlank(message = "Nome do jogo é obrigatório")
     @Column(nullable = false, columnDefinition="varchar(200)")
@@ -61,7 +68,7 @@ public class Jogo {
     }
 
     // Getters and Setters
-    public String getUid() {
+    public UUID getUid() {
         return uid;
     }
 

@@ -1,3 +1,8 @@
+package com.ludicom.backend.model;
+
+import jakarta.persistence.*;
+import java.util.UUID;
+
 @Entity
 @Table(name = "instituicao")
 public class Instituicao {
@@ -22,7 +27,7 @@ public class Instituicao {
     }
 
     // Getters e Setters
-    public String getUid() {
+    public UUID getUid() {
         return uid;
     }
     
