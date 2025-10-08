@@ -14,6 +14,7 @@ public class Participante {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(columnDefinition = "text")
     private UUID uid;
 
     @Column(name="id_instituicao", unique = true, nullable =true)
