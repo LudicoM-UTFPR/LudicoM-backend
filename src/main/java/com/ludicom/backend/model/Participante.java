@@ -80,15 +80,4 @@ public class Participante {
 
     public void setRa(String ra) { this.ra = ra; }
 
-    @Override
-    public String toString() {
-        return "Participante{" +
-                "id=" + uid +
-                ", nome='" + nome + '\'' +
-                ", email='" + email + '\'' +
-                ", id_instituicao='" + idInstituicao + '\'' +
-                ", documento='" + documento + '\'' +
-                ", ra='" + ra + '\'' +
-                '}';
-    }
 }
