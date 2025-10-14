@@ -9,31 +9,31 @@ import java.util.UUID;
 @Table(name = "emprestimo")
 
 public class Emprestimo {
-@Id
-@GeneratedValue(strategy = GenerationType.UUID)
-@Column(columnDefinition = "text")
-private UUID uid;
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(columnDefinition = "text")
+    private UUID uid;
 
-@NotBlank(message = "Participante é obrigatório")
-@OneToOne(fetch  = FetchType.LAZY)
-@JoinColumn(name = "id_participante", nullable = false)
-private Participante participante;
+    @NotBlank(message = "Participante é obrigatório")
+    @OneToOne(fetch  = FetchType.LAZY)
+    @JoinColumn(name = "id_participante", nullable = false)
+    private Participante participante;
 
-@NotBlank(message = "Evento é obrigatório")
-@ManyToOne(fetch = FetchType.LAZY)
-@JoinColumn(name = "id_evento", nullable = false)
-private Evento evento;
+    @NotBlank(message = "Evento é obrigatório")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_evento", nullable = false)
+    private Evento evento;
 
-@NotBlank(message = "Horário do empréstimo é obrigatório")
-@Column(name = "hora_emprestimo", nullable = false, columnDefinition="time")
-private String horaEmprestimo;
+    @NotBlank(message = "Horário do empréstimo é obrigatório")
+    @Column(name = "hora_emprestimo", nullable = false, columnDefinition="time")
+    private String horaEmprestimo;
 
-@NotBlank(message = "Horário da devolução é obrigatório")
-@Column(name = "hora_devolucao", nullable = false, columnDefinition="time")
-private String horaDevolucao;
+    @NotBlank(message = "Horário da devolução é obrigatório")
+    @Column(name = "hora_devolucao", nullable = false, columnDefinition="time")
+    private String horaDevolucao;
 
-@Column(name = "is_devolvido", nullable = false)
-private Boolean isDevolvido;
+    @Column(name = "is_devolvido", nullable = false)
+    private Boolean isDevolvido;
 
     public UUID getUid() {
         return uid;
