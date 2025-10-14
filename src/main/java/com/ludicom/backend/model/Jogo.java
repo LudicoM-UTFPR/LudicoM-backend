@@ -26,8 +26,8 @@ public class Jogo {
     @Column(name = "tempo_de_jogo", columnDefinition="int")
     private Integer tempoDeJogo; // em minutos
 
-    @Column(name = "minimo_jogares", columnDefinition="int")
-    private Integer minimoJogares;
+    @Column(name = "minimo_jogadores", columnDefinition="int")
+    private Integer minimoJogadores;
 
     @Column(name = "maximo_jogares", columnDefinition="int")
     private Integer maximoJogares;
