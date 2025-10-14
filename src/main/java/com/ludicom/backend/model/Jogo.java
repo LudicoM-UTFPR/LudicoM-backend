@@ -100,18 +100,18 @@ public class Jogo {
         this.tempoDeJogo = tempoDeJogo;
     }
 
-    public Integer getMinimoJogares() {
-        return minimoJogares;
+    public Integer getMinimoJogadores() {
+        return minimoJogadores;
     }
-    public void setMinimoJogares(Integer minimoJogares) {
-        this.minimoJogares = minimoJogares;
+    public void setMinimoJogadores(Integer minimoJogadores) {
+        this.minimoJogadores = minimoJogadores;
     }
 
-    public Integer getMaximoJogares() {
-        return maximoJogares;
+    public Integer getMaximoJogadores() {
+        return maximoJogadores;
     }
-    public void setMaximoJogares(Integer maximoJogares) {
-        this.maximoJogares = maximoJogares;
+    public void setMaximoJogadores(Integer maximoJogadores) {
+        this.maximoJogadores = maximoJogadores;
     }
 
     public String getCodigoDeBarras() {
