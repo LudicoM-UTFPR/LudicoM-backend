@@ -29,8 +29,8 @@ public class Jogo {
     @Column(name = "minimo_jogadores", columnDefinition="int")
     private Integer minimoJogadores;
 
-    @Column(name = "maximo_jogares", columnDefinition="int")
-    private Integer maximoJogares;
+    @Column(name = "maximo_jogadores", columnDefinition="int")
+    private Integer maximoJogadores;
 
     @Column(name = "codigo_de_barras")
     private String codigoDeBarras;
