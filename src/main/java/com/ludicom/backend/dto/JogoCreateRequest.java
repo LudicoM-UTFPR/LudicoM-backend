@@ -100,6 +100,4 @@ public class JogoCreateRequest {
         this.isDisponivel = isDisponivel;
     }
 
-
-    
 }
