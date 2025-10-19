@@ -38,10 +38,6 @@ public class UserCreateRequest {
         return email;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
     public void setEmail(String email) {
         this.email = email;
     }
