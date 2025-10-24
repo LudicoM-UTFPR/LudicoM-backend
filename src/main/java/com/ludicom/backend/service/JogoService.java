@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ludicom.backend.dto.JogoCreateRequest;
 import com.ludicom.backend.dto.JogoResponse;
+import com.ludicom.backend.exception.ResourceAlreadyExistsException;
 import com.ludicom.backend.exception.ResourceNotFoundException;
 import com.ludicom.backend.model.Jogo;
 import com.ludicom.backend.repository.JogoRepository;
@@ -28,7 +29,7 @@ public class JogoService {
     public JogoResponse createJogo(JogoCreateRequest request) {
         // Verifica se o nome do jogo já existe
         if (jogoRepository.existsByNome(request.getNome())) {
-            throw new RuntimeException("Nome do jogo já existe: " + request.getNome());
+          throw new ResourceAlreadyExistsException("Jogo", "nome", request.getNome());
         }
 
         Jogo jogo = new Jogo(request.getNome(), request.getNomeAlternativo(), request.getAnoPublicacao(),
@@ -64,7 +65,7 @@ public class JogoService {
 
         // Verifica se o nome está sendo alterado e se já existe outro jogo com esse nome
         if (!jogo.getNome().equals(request.getNome()) && jogoRepository.existsByNome(request.getNome())) {
-            throw new RuntimeException("Nome do jogo já existe: " + request.getNome());
+              throw new ResourceAlreadyExistsException("Jogo", "nome", request.getNome());
         }
 
         jogo.setNome(request.getNome());

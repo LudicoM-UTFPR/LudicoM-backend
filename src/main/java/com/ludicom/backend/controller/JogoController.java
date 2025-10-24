@@ -38,12 +38,8 @@ public class JogoController {
      */
     @PostMapping
     public ResponseEntity<JogoResponse> createJogo(@Valid @RequestBody JogoCreateRequest request) {
-        try {
-            JogoResponse response = jogoService.createJogo(request);
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
+        JogoResponse response = jogoService.createJogo(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     /**

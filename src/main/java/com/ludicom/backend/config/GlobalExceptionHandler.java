@@ -1,5 +1,9 @@
 package com.ludicom.backend.config;
 
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -7,11 +11,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.ludicom.backend.exception.ResourceAlreadyExistsException;
 import com.ludicom.backend.exception.ResourceNotFoundException;
-
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Global exception handler for the application
@@ -56,6 +57,19 @@ public class GlobalExceptionHandler {
         
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
+
+        /**
+         * Handle resource already exists exceptions
+         */
+        @ExceptionHandler(ResourceAlreadyExistsException.class)
+        public ResponseEntity<Map<String, Object>> handleResourceAlreadyExistsException(ResourceAlreadyExistsException ex) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("error", ex.getMessage());
+            response.put("timestamp", LocalDateTime.now());
+            response.put("status", HttpStatus.CONFLICT.value());
+        
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+        }
 
     /**
      * Handle runtime exceptions
