@@ -1,14 +1,16 @@
 package com.ludicom.backend.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import com.ludicom.backend.model.Jogo;
-import com.ludicom.backend.repository.JogoRepository;
-import com.ludicom.backend.dto.JogoCreateRequest;
-import com.ludicom.backend.dto.JogoResponse;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.ludicom.backend.dto.JogoCreateRequest;
+import com.ludicom.backend.dto.JogoResponse;
+import com.ludicom.backend.exception.ResourceNotFoundException;
+import com.ludicom.backend.model.Jogo;
+import com.ludicom.backend.repository.JogoRepository;
 
 @Service
 @Transactional
@@ -16,7 +18,6 @@ public class JogoService {
 
     private final JogoRepository jogoRepository;
 
-    @Autowired
     public JogoService(JogoRepository jogoRepository) {
         this.jogoRepository = jogoRepository;
     }
@@ -44,9 +45,54 @@ public class JogoService {
                 .collect(Collectors.toList());
     }
 
+    /*
+     * Buscar jogo por ID
+     */
+    @Transactional(readOnly = true)
+    public JogoResponse getJogoById(String id) {
+        Jogo jogo = jogoRepository.findByUid(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Jogo", "ID", id));
+        return convertToResponse(jogo);
+    }
+
+    /*
+     * Atualizar um jogo existente
+     */
+    public JogoResponse updateJogo(String id, JogoCreateRequest request) {
+        Jogo jogo = jogoRepository.findByUid(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Jogo", "ID", id));
+
+        // Verifica se o nome está sendo alterado e se já existe outro jogo com esse nome
+        if (!jogo.getNome().equals(request.getNome()) && jogoRepository.existsByNome(request.getNome())) {
+            throw new RuntimeException("Nome do jogo já existe: " + request.getNome());
+        }
+
+        jogo.setNome(request.getNome());
+        jogo.setNomeAlternativo(request.getNomeAlternativo());
+        jogo.setAnoPublicacao(request.getAnoPublicacao());
+        jogo.setTempoDeJogo(request.getTempoDeJogo());
+        jogo.setMinimoJogadores(request.getMinimoJogadores());
+        jogo.setMaximoJogadores(request.getMaximoJogadores());
+        jogo.setCodigoDeBarras(request.getCodigoDeBarras());
+        jogo.setIsDisponivel(request.getIsDisponivel());
+
+        Jogo updatedJogo = jogoRepository.save(jogo);
+        return convertToResponse(updatedJogo);
+    }
+
+    /*
+     * Deletar um jogo
+     */
+    public void deleteJogo(String id) {
+        if (!jogoRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Jogo", "ID", id);
+        }
+        jogoRepository.deleteById(id);
+    }
+
     private JogoResponse convertToResponse(Jogo jogo) {
         return new JogoResponse(
-            jogo.getUid().toString(),
+            jogo.getUid(),
             jogo.getNome(),
             jogo.getNomeAlternativo(),
             jogo.getAnoPublicacao() != null ? jogo.getAnoPublicacao().toString() : null,

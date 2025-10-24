@@ -37,11 +37,6 @@ public class UserCreateRequest {
     public String getEmail() {
         return email;
     }
-
-    public String getNome() {
-        return nome;
-    }
-
     public void setEmail(String email) {
         this.email = email;
     }

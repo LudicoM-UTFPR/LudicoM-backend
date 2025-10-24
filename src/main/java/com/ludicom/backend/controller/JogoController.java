@@ -1,29 +1,34 @@
 package com.ludicom.backend.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.Validated;
-import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.ludicom.backend.service.JogoService;
 import com.ludicom.backend.dto.JogoCreateRequest;
 import com.ludicom.backend.dto.JogoResponse;
+import com.ludicom.backend.service.JogoService;
 
-import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
+import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/jogos")
+@RequestMapping("/api/jogo")
 @CrossOrigin(origins = "*")
 @Validated
 public class JogoController {
 
     private final JogoService jogoService;
 
-    @Autowired
     public JogoController(JogoService jogoService) {
         this.jogoService = jogoService;
     }
@@ -48,5 +53,32 @@ public class JogoController {
     public ResponseEntity<List<JogoResponse>> getAllJogos() {
         List<JogoResponse> jogos = jogoService.getAllJogos();
         return ResponseEntity.ok(jogos);
+    }
+
+    /**
+     * Buscar jogo por ID
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<JogoResponse> getJogoById(@PathVariable String id) {
+        JogoResponse response = jogoService.getJogoById(id);
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * Atualizar um jogo existente
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<JogoResponse> updateJogo(@PathVariable String id, @Valid @RequestBody JogoCreateRequest request) {
+        JogoResponse response = jogoService.updateJogo(id, request);
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * Deletar um jogo
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteJogo(@PathVariable String id) {
+        jogoService.deleteJogo(id);
+        return ResponseEntity.noContent().build();
     }
 }
