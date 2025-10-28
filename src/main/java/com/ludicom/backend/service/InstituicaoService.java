@@ -69,7 +69,6 @@ public class InstituicaoService {
             throw new RequiredFieldException("Instituicao", "nome");
         }
 
-
         Instituicao instituicao = instituicaoRepository.findByUid(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Instituicao", "ID", id));
 
