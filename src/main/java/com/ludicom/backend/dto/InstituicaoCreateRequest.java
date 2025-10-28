@@ -40,4 +40,3 @@ public class InstituicaoCreateRequest {
         this.endereco = endereco;
     }
 }
-
