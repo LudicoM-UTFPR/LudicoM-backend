@@ -43,4 +43,3 @@ public class InstituicaoResponse {
         this.endereco = endereco;
     }
 }
-
