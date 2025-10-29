@@ -17,7 +17,7 @@ public class Participante {
     @Column(name = "uid", updatable = false, nullable = false)
     private String uid;
 
-    @Column(name="id_instituicao", unique = true, nullable =true)
+    @Column(name="id_instituicao", nullable =true)
     private String idInstituicao;
 
     @NotBlank(message = "Insira o Nome")
