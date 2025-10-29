@@ -12,7 +12,11 @@ public interface ParticipanteRepository extends JpaRepository<Participante, Stri
 
     Optional<Participante> findByDocumento(String documento);
 
+    Optional<Participante> findByRa(String ra);
+
     boolean existsByEmail(String email);
 
     boolean existsByDocumento(String documento);
+
+    boolean existsByRa(String ra);
 }

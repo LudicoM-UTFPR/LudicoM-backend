@@ -55,6 +55,12 @@ public class ParticipanteService {
             throw new ResourceAlreadyExistsException("Participante", "documento", request.getDocumento());
         }
 
+        // Verifica se o RA já existe (se foi fornecido)
+        if (request.getRa() != null && !request.getRa().trim().isEmpty() &&
+            participanteRepository.existsByRa(request.getRa())) {
+            throw new ResourceAlreadyExistsException("Participante", "ra", request.getRa());
+        }
+
         // Valida e busca a instituição se foi fornecida
         Instituicao instituicao = null;
         if (request.getIdInstituicao() != null && !request.getIdInstituicao().trim().isEmpty()) {
@@ -135,6 +141,14 @@ public class ParticipanteService {
         if (!participante.getDocumento().equals(request.getDocumento()) &&
             participanteRepository.existsByDocumento(request.getDocumento())) {
             throw new ResourceAlreadyExistsException("Participante", "documento", request.getDocumento());
+        }
+
+        // Verifica se o RA está sendo alterado e se já existe outro participante com esse RA
+        if (request.getRa() != null && !request.getRa().trim().isEmpty()) {
+            if (!participante.getRa().equals(request.getRa()) &&
+                participanteRepository.existsByRa(request.getRa())) {
+                throw new ResourceAlreadyExistsException("Participante", "ra", request.getRa());
+            }
         }
 
         // Valida e busca a instituição se foi fornecida
