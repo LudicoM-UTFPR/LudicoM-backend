@@ -3,18 +3,18 @@ package com.ludicom.backend.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.ludicom.backend.repository.InstituicaoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ludicom.backend.dto.MessageResponse;
 import com.ludicom.backend.dto.ParticipanteCreateRequest;
 import com.ludicom.backend.dto.ParticipanteResponse;
-import com.ludicom.backend.dto.MessageResponse;
 import com.ludicom.backend.exception.RequiredFieldException;
 import com.ludicom.backend.exception.ResourceAlreadyExistsException;
 import com.ludicom.backend.exception.ResourceNotFoundException;
 import com.ludicom.backend.model.Instituicao;
 import com.ludicom.backend.model.Participante;
+import com.ludicom.backend.repository.InstituicaoRepository;
 import com.ludicom.backend.repository.ParticipanteRepository;
 
 @Service
@@ -66,6 +66,10 @@ public class ParticipanteService {
         if (request.getIdInstituicao() != null && !request.getIdInstituicao().trim().isEmpty()) {
             instituicao = instituicaoRepository.findById(request.getIdInstituicao())
                     .orElseThrow(() -> new ResourceNotFoundException("Instituição", "ID", request.getIdInstituicao()));
+        }
+
+        if(request.getIdInstituicao().trim().isEmpty()){
+            request.setIdInstituicao(null);
         }
 
         Participante participante = new Participante(
@@ -156,6 +160,10 @@ public class ParticipanteService {
         if (request.getIdInstituicao() != null && !request.getIdInstituicao().trim().isEmpty()) {
             instituicao = instituicaoRepository.findById(request.getIdInstituicao())
                     .orElseThrow(() -> new ResourceNotFoundException("Instituição", "ID", request.getIdInstituicao()));
+        }
+
+        if(request.getIdInstituicao().trim().isEmpty()){
+            request.setIdInstituicao(null);
         }
 
         participante.setNome(request.getNome());
