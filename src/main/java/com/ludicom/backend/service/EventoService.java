@@ -93,7 +93,7 @@ public class EventoService {
             throw new RequiredFieldException("Evento", "data");
         }
 
-        if(request.getIdInstituicao() == null || request.getIdInstituicao().trim().isEmpty()) {
+        if (request.getIdInstituicao() == null || request.getIdInstituicao().trim().isEmpty()) {
             throw new RequiredFieldException("Evento", "idInstituicao");
         }
 
