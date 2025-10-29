@@ -2,7 +2,6 @@ package com.ludicom.backend.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import java.util.UUID;
 
 /**
  * Entidade Participante para representar os participantes do sistema
