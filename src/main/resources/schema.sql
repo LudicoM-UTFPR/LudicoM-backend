@@ -63,9 +63,7 @@ CREATE TABLE IF NOT EXISTS jogo (
     is_disponivel      BOOLEAN DEFAULT TRUE,
     criado_quando      TIMESTAMP,
     atualizado_quando  TIMESTAMP
-);
-
-CREATE TABLE IF NOT EXISTS 
+); 
 
 -- 6) Tabela de usuários
 CREATE TABLE IF NOT EXISTS users (
