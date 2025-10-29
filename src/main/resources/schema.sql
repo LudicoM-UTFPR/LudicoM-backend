@@ -65,6 +65,8 @@ CREATE TABLE IF NOT EXISTS jogo (
     atualizado_quando  TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS 
+
 -- 6) Tabela de usuários
 CREATE TABLE IF NOT EXISTS users (
     id          BIGSERIAL PRIMARY KEY,
@@ -74,3 +76,5 @@ CREATE TABLE IF NOT EXISTS users (
     updated_at  TIMESTAMP,
     is_active   BOOLEAN DEFAULT TRUE
 );
+
+
