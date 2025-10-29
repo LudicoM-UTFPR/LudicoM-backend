@@ -89,7 +89,7 @@ public class EventoService {
      * Atualizar um evento existente
      */
     public EventoResponse updateEvento(String id, EventoCreateRequest request) {
-        if(request.getData() == null || request.getData().trim().isEmpty()) {
+        if (request.getData() == null || request.getData().trim().isEmpty()) {
             throw new RequiredFieldException("Evento", "data");
         }
 
