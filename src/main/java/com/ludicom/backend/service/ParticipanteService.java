@@ -55,29 +55,33 @@ public class ParticipanteService {
             throw new ResourceAlreadyExistsException("Participante", "documento", request.getDocumento());
         }
 
-        // Verifica se o RA já existe (se foi fornecido)
-        if (request.getRa() != null && !request.getRa().trim().isEmpty() &&
-            participanteRepository.existsByRa(request.getRa())) {
-            throw new ResourceAlreadyExistsException("Participante", "ra", request.getRa());
-        }
+        // Normalizar idInstituicao: vazio vira null
+        String idInstituicao = (request.getIdInstituicao() == null || request.getIdInstituicao().trim().isEmpty())
+            ? null
+            : request.getIdInstituicao();
 
-        // Valida e busca a instituição se foi fornecida
+        // Se não há instituição, forçar RA a ser null
+        String ra = idInstituicao == null ? null : request.getRa();
+
+        // Se há instituição, validar e buscar
         Instituicao instituicao = null;
-        if (request.getIdInstituicao() != null && !request.getIdInstituicao().trim().isEmpty()) {
-            instituicao = instituicaoRepository.findById(request.getIdInstituicao())
-                    .orElseThrow(() -> new ResourceNotFoundException("Instituição", "ID", request.getIdInstituicao()));
-        }
+        if (idInstituicao != null) {
+            instituicao = instituicaoRepository.findById(idInstituicao)
+                    .orElseThrow(() -> new ResourceNotFoundException("Instituição", "ID", idInstituicao));
 
-        if(request.getIdInstituicao().trim().isEmpty()){
-            request.setIdInstituicao(null);
+            // Verifica se o RA já existe (se foi fornecido)
+            if (ra != null && !ra.trim().isEmpty() &&
+                participanteRepository.existsByRa(ra)) {
+                throw new ResourceAlreadyExistsException("Participante", "ra", ra);
+            }
         }
 
         Participante participante = new Participante(
             request.getNome(),
             request.getEmail(),
-            request.getIdInstituicao(),
+            idInstituicao,
             request.getDocumento(),
-            request.getRa()
+            ra
         );
 
         Participante savedParticipante = participanteRepository.save(participante);
@@ -147,30 +151,34 @@ public class ParticipanteService {
             throw new ResourceAlreadyExistsException("Participante", "documento", request.getDocumento());
         }
 
-        // Verifica se o RA está sendo alterado e se já existe outro participante com esse RA
-        if (request.getRa() != null && !request.getRa().trim().isEmpty()) {
-            if (!participante.getRa().equals(request.getRa()) &&
-                participanteRepository.existsByRa(request.getRa())) {
-                throw new ResourceAlreadyExistsException("Participante", "ra", request.getRa());
-            }
-        }
+        // Normalizar idInstituicao: vazio vira null
+        String idInstituicao = (request.getIdInstituicao() == null || request.getIdInstituicao().trim().isEmpty())
+            ? null
+            : request.getIdInstituicao();
 
-        // Valida e busca a instituição se foi fornecida
+        // Se não há instituição, forçar RA a ser null
+        String ra = idInstituicao == null ? null : request.getRa();
+
+        // Se há instituição, validar e buscar
         Instituicao instituicao = null;
-        if (request.getIdInstituicao() != null && !request.getIdInstituicao().trim().isEmpty()) {
-            instituicao = instituicaoRepository.findById(request.getIdInstituicao())
-                    .orElseThrow(() -> new ResourceNotFoundException("Instituição", "ID", request.getIdInstituicao()));
-        }
+        if (idInstituicao != null) {
+            instituicao = instituicaoRepository.findById(idInstituicao)
+                    .orElseThrow(() -> new ResourceNotFoundException("Instituição", "ID", idInstituicao));
 
-        if(request.getIdInstituicao().trim().isEmpty()){
-            request.setIdInstituicao(null);
+            // Verifica se o RA está sendo alterado e se já existe outro participante com esse RA
+            if (ra != null && !ra.trim().isEmpty()) {
+                if (!participante.getRa().equals(ra) &&
+                    participanteRepository.existsByRa(ra)) {
+                    throw new ResourceAlreadyExistsException("Participante", "ra", ra);
+                }
+            }
         }
 
         participante.setNome(request.getNome());
         participante.setEmail(request.getEmail());
         participante.setDocumento(request.getDocumento());
-        participante.setIdInstituicao(request.getIdInstituicao());
-        participante.setRa(request.getRa());
+        participante.setIdInstituicao(idInstituicao);
+        participante.setRa(ra);
 
         Participante updatedParticipante = participanteRepository.save(participante);
         return convertToResponse(updatedParticipante, instituicao);
