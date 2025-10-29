@@ -14,6 +14,7 @@ public class EventoCreateRequest {
     @NotBlank(message = "Data do evento é obrigatória")
     private String data;
 
+    @NotBlank(message = "Horário de início é obrigatório")
     @Pattern(regexp = "^([01]\\d|2[0-3]):([0-5]\\d):([0-5]\\d)$", message = "Horário de início deve estar no formato HH:MM:SS")
     private String horaInicio;
 
