@@ -96,8 +96,8 @@ public class ParticipanteService {
         return participanteRepository.findAll().stream()
                 .map(p -> {
                     Instituicao instituicao = null;
-                    if (p.getInstituicao() != null && !p.getInstituicao().isEmpty()) {
-                        instituicao = instituicaoRepository.findById(p.getInstituicao()).orElse(null);
+                    if (p.getIdInstituicao() != null && !p.getIdInstituicao().isEmpty()) {
+                        instituicao = instituicaoRepository.findById(p.getIdInstituicao()).orElse(null);
                     }
                     return convertToResponse(p, instituicao);
                 })
@@ -113,8 +113,8 @@ public class ParticipanteService {
                 .orElseThrow(() -> new ResourceNotFoundException("Participante", "ID", id));
 
         Instituicao instituicao = null;
-        if (participante.getInstituicao() != null && !participante.getInstituicao().isEmpty()) {
-            instituicao = instituicaoRepository.findById(participante.getInstituicao()).orElse(null);
+        if (participante.getIdInstituicao() != null && !participante.getIdInstituicao().isEmpty()) {
+            instituicao = instituicaoRepository.findById(participante.getIdInstituicao()).orElse(null);
         }
 
         return convertToResponse(participante, instituicao);

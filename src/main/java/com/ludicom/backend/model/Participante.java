@@ -68,7 +68,7 @@ public class Participante {
 
     public void setEmail(String email) { this.email = email; }
 
-    public String getInstituicao() { return idInstituicao; }
+    public String getIdInstituicao() { return idInstituicao; }
 
     public void setIdInstituicao(String id_instituicao) { this.idInstituicao = id_instituicao; }
 
