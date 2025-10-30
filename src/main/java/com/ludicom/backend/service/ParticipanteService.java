@@ -1,6 +1,8 @@
 package com.ludicom.backend.service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -93,11 +95,27 @@ public class ParticipanteService {
      */
     @Transactional(readOnly = true)
     public List<ParticipanteResponse> getAllParticipantes() {
-        return participanteRepository.findAll().stream()
+        // Fetch all participants
+        List<Participante> participantes = participanteRepository.findAll();
+        
+        // Collect all unique institution IDs (excluding null and empty)
+        List<String> instituicaoIds = participantes.stream()
+                .map(Participante::getInstituicao)
+                .filter(id -> id != null && !id.isEmpty())
+                .distinct()
+                .collect(Collectors.toList());
+        
+        // Batch fetch all institutions in a single query
+        Map<String, Instituicao> instituicaoMap = instituicaoRepository.findAllById(instituicaoIds)
+                .stream()
+                .collect(Collectors.toMap(Instituicao::getUid, Function.identity()));
+        
+        // Map participants to responses with their institutions
+        return participantes.stream()
                 .map(p -> {
                     Instituicao instituicao = null;
                     if (p.getInstituicao() != null && !p.getInstituicao().isEmpty()) {
-                        instituicao = instituicaoRepository.findById(p.getInstituicao()).orElse(null);
+                        instituicao = instituicaoMap.get(p.getInstituicao());
                     }
                     return convertToResponse(p, instituicao);
                 })
