@@ -1,6 +1,7 @@
 package com.ludicom.backend.service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -167,7 +168,7 @@ public class ParticipanteService {
 
             // Verifica se o RA está sendo alterado e se já existe outro participante com esse RA
             if (ra != null && !ra.trim().isEmpty()) {
-                if (!participante.getRa().equals(ra) &&
+                if (!Objects.equals(participante.getRa(), ra) &&
                     participanteRepository.existsByRa(ra)) {
                     throw new ResourceAlreadyExistsException("Participante", "ra", ra);
                 }
