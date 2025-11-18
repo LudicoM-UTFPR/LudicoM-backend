@@ -1,4 +1,5 @@
 package com.ludicom.backend.model;
+
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -22,8 +23,13 @@ public class Emprestimo {
     @Column(columnDefinition = "text")
     private UUID uid;
 
+    @NotBlank(message = "Jogo é obrigatório")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_jogo", nullable = false)
+    private Jogo jogo;
+
     @NotBlank(message = "Participante é obrigatório")
-    @OneToOne(fetch  = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_participante", nullable = false)
     private Participante participante;
 
@@ -33,11 +39,11 @@ public class Emprestimo {
     private Evento evento;
 
     @NotBlank(message = "Horário do empréstimo é obrigatório")
-    @Column(name = "hora_emprestimo", nullable = false, columnDefinition="time")
+    @Column(name = "hora_emprestimo", nullable = false, columnDefinition = "time")
     private String horaEmprestimo;
 
     @NotBlank(message = "Horário da devolução é obrigatório")
-    @Column(name = "hora_devolucao", nullable = false, columnDefinition="time")
+    @Column(name = "hora_devolucao", nullable = false, columnDefinition = "time")
     private String horaDevolucao;
 
     @Column(name = "is_devolvido", nullable = false)
@@ -45,6 +51,10 @@ public class Emprestimo {
 
     public UUID getUid() {
         return uid;
+    }
+
+    public Jogo getJogo() {
+        return jogo;
     }
 
     public Participante getParticipante() {
@@ -65,6 +75,10 @@ public class Emprestimo {
 
     public Boolean getDevolvido() {
         return isDevolvido;
+    }
+
+    public void setJogo(Jogo jogo) {
+        this.jogo = jogo;
     }
 
     public void setParticipante(Participante participante) {
