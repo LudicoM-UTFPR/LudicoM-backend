@@ -13,6 +13,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "emprestimo")
@@ -23,17 +24,17 @@ public class Emprestimo {
     @Column(columnDefinition = "text")
     private UUID uid;
 
-    @NotBlank(message = "Jogo é obrigatório")
+    @NotNull(message = "Jogo é obrigatório")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_jogo", nullable = false)
     private Jogo jogo;
 
-    @NotBlank(message = "Participante é obrigatório")
+    @NotNull(message = "Participante é obrigatório")
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_participante", nullable = false)
     private Participante participante;
 
-    @NotBlank(message = "Evento é obrigatório")
+    @NotNull(message = "Evento é obrigatório")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_evento", nullable = false)
     private Evento evento;
