@@ -1,13 +1,11 @@
 package com.ludicom.backend.dto;
 
-import java.util.UUID;
-
 /**
  * Data Transfer Object for Emprestimo responses.
  */
 public class EmprestimoResponse {
 
-    private UUID uid;
+    private String uid;
     private JogoResponse jogo;
     private ParticipanteResponse participante;
     private EventoResponse evento;
@@ -19,7 +17,7 @@ public class EmprestimoResponse {
     public EmprestimoResponse() {
     }
 
-    public EmprestimoResponse(UUID uid, JogoResponse jogo, ParticipanteResponse participante,
+    public EmprestimoResponse(String uid, JogoResponse jogo, ParticipanteResponse participante,
             EventoResponse evento, String horaEmprestimo, String horaDevolucao,
             Boolean isDevolvido) {
         this.uid = uid;
@@ -32,11 +30,11 @@ public class EmprestimoResponse {
     }
 
     // Getters and Setters
-    public UUID getUid() {
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(UUID uid) {
+    public void setUid(String uid) {
         this.uid = uid;
     }
 

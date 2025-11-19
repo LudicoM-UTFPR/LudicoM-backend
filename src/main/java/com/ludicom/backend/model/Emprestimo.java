@@ -1,7 +1,5 @@
 package com.ludicom.backend.model;
 
-import java.util.UUID;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -22,7 +20,7 @@ public class Emprestimo {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(columnDefinition = "text")
-    private UUID uid;
+    private String uid;
 
     @NotNull(message = "Jogo é obrigatório")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -50,7 +48,7 @@ public class Emprestimo {
     @Column(name = "is_devolvido", nullable = false)
     private Boolean isDevolvido;
 
-    public UUID getUid() {
+    public String getUid() {
         return uid;
     }
 

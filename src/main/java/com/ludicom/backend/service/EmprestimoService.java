@@ -1,7 +1,6 @@
 package com.ludicom.backend.service;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -103,14 +102,7 @@ public class EmprestimoService {
      */
     @Transactional(readOnly = true)
     public EmprestimoResponse getEmprestimoById(String id) {
-        UUID uuid;
-        try {
-            uuid = UUID.fromString(id);
-        } catch (IllegalArgumentException e) {
-            throw new ResourceNotFoundException("Emprestimo", "ID", id);
-        }
-
-        Emprestimo emprestimo = emprestimoRepository.findById(uuid)
+        Emprestimo emprestimo = emprestimoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Emprestimo", "ID", id));
 
         return convertToResponse(emprestimo);
@@ -137,14 +129,7 @@ public class EmprestimoService {
             throw new RequiredFieldException("Emprestimo", "horaDevolucao");
         }
 
-        UUID uuid;
-        try {
-            uuid = UUID.fromString(id);
-        } catch (IllegalArgumentException e) {
-            throw new ResourceNotFoundException("Emprestimo", "ID", id);
-        }
-
-        Emprestimo emprestimo = emprestimoRepository.findById(uuid)
+        Emprestimo emprestimo = emprestimoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Emprestimo", "ID", id));
 
         // Buscar entidades relacionadas
@@ -173,18 +158,11 @@ public class EmprestimoService {
      * Deletar um empréstimo
      */
     public MessageResponse deleteEmprestimo(String id) {
-        UUID uuid;
-        try {
-            uuid = UUID.fromString(id);
-        } catch (IllegalArgumentException e) {
+        if (!emprestimoRepository.existsById(id)) {
             throw new ResourceNotFoundException("Emprestimo", "ID", id);
         }
 
-        if (!emprestimoRepository.existsById(uuid)) {
-            throw new ResourceNotFoundException("Emprestimo", "ID", id);
-        }
-
-        emprestimoRepository.deleteById(uuid);
+        emprestimoRepository.deleteById(id);
         return new MessageResponse("Empréstimo deletado com sucesso");
     }
 
