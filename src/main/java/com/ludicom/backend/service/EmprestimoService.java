@@ -87,7 +87,7 @@ public class EmprestimoService {
 
         // Verificar se o participante já tem um empréstimo ativo
         emprestimoRepository.findActiveEmprestimoByParticipante(participante).ifPresent(emprestimoAtivo -> {
-            String mensagem = String.format("O usuario %s, já possui um emprestimo ativo, com o jogo %s",
+            String mensagem = String.format("O usuário %s, já possui um empréstimo ativo, com o jogo %s",
                     participante.getNome(),
                     emprestimoAtivo.getJogo().getNome());
             throw new ResourceAlreadyExistsException(mensagem);
