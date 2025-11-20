@@ -75,7 +75,7 @@ public class EmprestimoService {
 
         // Verificar se o jogo está disponível
         if (!jogo.getIsDisponivel()) {
-            String mensagem = String.format("O jogo %s não está disponivel para emprestimo", jogo.getNome());
+            String mensagem = String.format("O jogo %s não está disponível para emprestimo", jogo.getNome());
             throw new ResourceUnavailableException(mensagem);
         }
 
