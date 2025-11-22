@@ -75,7 +75,7 @@ public class EmprestimoService {
 
         // Verificar se o jogo está disponível
         if (!jogo.getIsDisponivel()) {
-            String mensagem = String.format("O jogo %s não está disponivel para emprestimo", jogo.getNome());
+            String mensagem = String.format("O jogo %s não está disponível para emprestimo", jogo.getNome());
             throw new ResourceUnavailableException(mensagem);
         }
 
@@ -87,7 +87,7 @@ public class EmprestimoService {
 
         // Verificar se o participante já tem um empréstimo ativo
         emprestimoRepository.findActiveEmprestimoByParticipante(participante).ifPresent(emprestimoAtivo -> {
-            String mensagem = String.format("O usuario %s, já possui um emprestimo ativo, com o jogo %s",
+            String mensagem = String.format("O usuário %s, já possui um empréstimo ativo, com o jogo %s",
                     participante.getNome(),
                     emprestimoAtivo.getJogo().getNome());
             throw new ResourceAlreadyExistsException(mensagem);
